@@ -1,7 +1,7 @@
 ![cableguard logo banner](./banner.png)
 
 # Cableguard TOOL for configuring Cableguard TUN
-This is exactly the same as Wireguard tools, with one extra option to generate NEAR protocol implicit account json files with the account ID and key pair  that are stored in the ~/.near-credentials/ directory
+This is exactly the same as Wireguard tools, with one extra option 'genaccount' to generate NEAR protocol implicit account json files with the account ID and key pair  that are stored in the ~/.near-credentials/ directory
 
 # Wireguard Tools
 This supplies the main userspace tooling for using and configuring WireGuard
