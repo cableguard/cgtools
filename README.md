@@ -1,3 +1,5 @@
+![cableguard logo banner](./banner.png)
+
 # [wireguard-tools](https://github.com/alanesmizi/cableguard-wgtoolsabout/) &mdash; tools for configuring [WireGuard](https://www.wireguard.com/)
 
 This supplies the main userspace tooling for using and configuring WireGuard
