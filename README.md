@@ -29,3 +29,14 @@ This project is released under the [GPLv2](COPYING).
 - Cableguard WALLET: RODT manager
 - Cableguard AUTH: RODT authentication for interoperability with implementation of the Triangle of Trust.
 - Cableguard FIND: Server and peer finder
+
+## Installing from source
+from the cgtools directory where the source code is downloaded
+make -C ./src -j$(nproc)
+sudo make -C ./src install
+with the command
+wg --version
+you should get
+wireguard-tools v cableguard 1.0.20230527
+
+
