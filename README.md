@@ -17,10 +17,7 @@ This project is released under the [GPLv2](COPYING).
 - with the command
 - wg --version
 - you should get
-- wireguard-tools v cableguard 1.0.20230527
-- Before creating an account you need to set if it will create mainnet or testnet accounts with:
-- export $BLOCKCHAIN_ENV=testnet
-- or export $BLOCKCHAIN_ENV=testnet
+- wireguard-tools v cableguard 1.0.20230527:
 
 ## How to Use
 You need to set the blockchain network:
@@ -33,11 +30,11 @@ Usage: ./walletsh/rodtwallet.sh [account_id] [Options]
 
 Options:
 -  ./walletsh/rodtwallet.sh                   : List of available accounts
--  ./walletsh/rodtwallet.sh accountID         : Lists the RODT Ids in the account and its balance
--  ./walletsh/rodtwallet.sh <accountID keys   : Displays the accountID and the Private Key of the account
--  ./walletsh/rodtwallet.sh <accountID rodtId : Displays the indicated RODT
--  ./walletsh/rodtwallet.sh fundingaccountId unitializedaccountId init   : Initializes account with 0.01 NEAR from funding acount
--  ./walletsh/rodtwallet.sh originaccountId  destinationaccountId rodtId : Sends ROTD from origin account to destination account
+-  ./walletsh/rodtwallet.sh <accountID>       : Lists the RODT Ids in the account and its balance
+-  ./walletsh/rodtwallet.sh <accountID> keys  : Displays the accountID and the Private Key of the account
+-  ./walletsh/rodtwallet.sh <accountID> rodtId: Displays the indicated RODT
+-  ./walletsh/rodtwallet.sh <fundingaccountId> <unitializedaccountId> init   : Initializes account with 0.01 NEAR from funding acount
+-  ./walletsh/rodtwallet.sh <originaccountId>  <destinationaccountId> rodtId : Sends ROTD from origin account to destination account
 -  ./walletsh/rodtwallet.sh genaccount        : Creates a new uninitialized accountID
 
 # Cableguard Ecosystem
