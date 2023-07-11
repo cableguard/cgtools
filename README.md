@@ -1,13 +1,11 @@
 ![cableguard logo banner](./banner.png)
 
 # Cableguard TOOL for configuring Cableguard TUN
-This is exactly the same as Wireguard tools, with one extra option 'genaccount' to generate NEAR protocol implicit account json files with the account ID and key pair  that are stored in the ~/.near-credentials/ directory
-
-# Wireguard Tools
-This supplies the main userspace tooling for using and configuring WireGuard tunnels. More information may be found at [WireGuard.com](https://www.wireguard.com/).**
+This supplies the main userspace tooling for using and configuring WireGuard tunnels, with one extra option 'genaccount' to generate NEAR protocol implicit account json files with the account ID and key pair  that are stored in the ~/.near-credentials/ directory
 
 ## License
 This project is released under the [GPLv2](COPYING).
+More information may be found at [WireGuard.com](https://www.wireguard.com/).**
 
 ## How to Install from Source
 - You may need to install libssl-dev: sudo apt-get install libssl-dev
