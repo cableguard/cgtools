@@ -30,7 +30,7 @@ Usage: ./walletsh/rodtwallet.sh [account_id] [Options]
 
 Options:
 -  ./walletsh/rodtwallet.sh                   : List of available accounts
--  ./walletsh/rodtwallet.sh <accountID>       : Lists the RODT Ids in the account and its balance
+-  ./walletsh/rodtwallet.sh *accountID*       : Lists the RODT Ids in the account and its balance
 -  ./walletsh/rodtwallet.sh <accountID> keys  : Displays the accountID and the Private Key of the account
 -  ./walletsh/rodtwallet.sh <accountID> rodtId: Displays the indicated RODT
 -  ./walletsh/rodtwallet.sh <fundingaccountId> <unitializedaccountId> init   : Initializes account with 0.01 NEAR from funding acount
