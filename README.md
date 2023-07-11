@@ -38,5 +38,8 @@ This project is released under the [GPLv2](COPYING).
 - wg --version
 - you should get
 - wireguard-tools v cableguard 1.0.20230527
+- Before creating an account you need to set if it will create mainnet or testnet accounts with:
+- export $BLOCKCHAIN_ENV=testnet
+- or export $BLOCKCHAIN_ENV=testnet
 
 
