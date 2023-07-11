@@ -8,13 +8,15 @@ This project is released under the [GPLv2](COPYING).
 More information may be found at [WireGuard.com](https://www.wireguard.com/).**
 
 ## How to Install from Source
-- You may need to install libssl-dev: sudo apt-get install libssl-dev
-- from the cgtools directory where the source code is downloaded
+You may need to install libssl-dev with: sudo apt-get install libssl-dev
+
+From the cgtools directory where the source code is downloaded
 - make -C ./src -j$(nproc)
 - sudo make -C ./src install
-- with the command
+
+With the command
 - wg --version
-- you should get
+you should get
 - wireguard-tools v cableguard 1.0.20230527:
 
 ## How to Use
