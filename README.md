@@ -22,7 +22,7 @@ you should get
 ## How to Use
 You need to set the blockchain network:
 export BLOCKCHAIN_ENV=testnet (for testnet, mainnet for mainnet)
-You may want to add this line to your .bachrc file
+You may want to add this line to your .bashrc file
 
 It is used by the rodtwallet.sh script, with the following options overall after NEAR CLI is installed:
 
