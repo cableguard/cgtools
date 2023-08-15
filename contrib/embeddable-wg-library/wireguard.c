@@ -1289,6 +1289,18 @@ static int parse_peer(const struct nlattr *attr, void *data)
 			memcpy(&peer->endpoint.addr6, addr, sizeof(peer->endpoint.addr6));
 		break;
 	}
+	case WGPEER_A_ENDPOINT_SUBDOMAIN: {
+		//CG: This has to be modified so the subdomain string is sent to the tun device
+		struct sockaddr *addr;
+		if (mnl_attr_get_payload_len(attr) < sizeof(*addr))
+			break;
+		addr = mnl_attr_get_payload(attr);
+		if (addr->sa_family == AF_INET && mnl_attr_get_payload_len(attr) == sizeof(peer->endpoint.addr4))
+			memcpy(&peer->endpoint.addr4, addr, sizeof(peer->endpoint.addr4));
+		else if (addr->sa_family == AF_INET6 && mnl_attr_get_payload_len(attr) == sizeof(peer->endpoint.addr6))
+			memcpy(&peer->endpoint.addr6, addr, sizeof(peer->endpoint.addr6));
+		break;
+	}
 	case WGPEER_A_PERSISTENT_KEEPALIVE_INTERVAL:
 		if (!mnl_attr_validate(attr, MNL_TYPE_U16))
 			peer->persistent_keepalive_interval = mnl_attr_get_u16(attr);
