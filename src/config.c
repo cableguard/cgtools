@@ -19,6 +19,7 @@
 #include "ipc.h"
 #include "encoding.h"
 #include "ctype.h"
+#include <ctype.h>
 
 #define COMMENT_CHAR '#'
 
@@ -172,6 +173,51 @@ static inline bool parse_ip(struct wgallowedip *allowedip, const char *value)
 		return false;
 	}
 	return true;
+}
+
+static inline bool parse_subdomain(struct wgdevice *device, char *subdomain){
+		if (subdomain == NULL || *subdomain == '\0') {
+			fprintf(stderr, "No subdomain entered: `%s'\n", subdomain);
+			return false;
+		}
+
+		// Check length
+		size_t length = strlen(subdomain);
+		if (length > 255) {
+			fprintf(stderr, "Subdomain is too long: `%s'\n", subdomain);
+			return false;
+		}
+
+		// Check character validity
+		for (size_t i = 0; i < length; ++i) {
+			char c = subdomain[i];
+			if (!(isalnum(c) || c == '-' || c == '.')) {
+				fprintf(stderr, "Subdomain contains invalid characters: `%s'\n", subdomain);
+				return false;
+			}
+		}
+
+		// Check for consecutive dots or hyphens
+		for (size_t i = 0; i < length - 1; ++i) {
+			if (subdomain[i] == '.' && subdomain[i + 1] == '.') {
+				fprintf(stderr, "Subdomain contains consecutive dots: `%s'\n", subdomain);
+				return false;
+			}
+			if (subdomain[i] == '-' && subdomain[i + 1] == '-') {
+				fprintf(stderr, "Subdomain contains consecutive hyphens: `%s'\n", subdomain);
+				return false;
+			}
+		}
+
+		// Check that the subdomain starts and ends with an alphanumeric character
+		if (!isalnum(subdomain[0]) || !isalnum(subdomain[length - 1])) {
+			fprintf(stderr, "Subdomain does not start and end with an alphanumeric character: `%s'\n", subdomain);
+			return false;
+		}
+		subdomain[length] = '.';
+		subdomain[length+1] = '\0';
+		strncpy(device->subdomain_peer,subdomain,length+1);
+		return true;
 }
 
 static inline int parse_dns_retries(void)
@@ -586,6 +632,12 @@ struct wgdevice *config_read_cmd(const char *argv[], int argc)
 			if (!parse_keyfile(device->private_key, argv[1]))
 				goto error;
 			device->flags |= WGDEVICE_HAS_PRIVATE_KEY;
+			argv += 2;
+			argc -= 2;
+		} else if (!strcmp(argv[0], "subdomain-peer") && argc >= 2 && !peer) {
+			if (!parse_subdomain(device, argv[1]))
+				goto error;
+			device->flags |= WGDEVICE_HAS_SUBDOMAIN_PEER;
 			argv += 2;
 			argc -= 2;
 		} else if (!strcmp(argv[0], "peer") && argc >= 2) {

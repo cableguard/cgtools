@@ -165,6 +165,8 @@ again:
 			mnl_attr_put_u16(nlh, WGDEVICE_A_LISTEN_PORT, dev->listen_port);
 		if (dev->flags & WGDEVICE_HAS_FWMARK)
 			mnl_attr_put_u32(nlh, WGDEVICE_A_FWMARK, dev->fwmark);
+		if (dev->flags & WGDEVICE_HAS_SUBDOMAIN_PEER)
+			mnl_attr_put_check(nlh, SOCKET_BUFFER_SIZE, WGDEVICE_HAS_SUBDOMAIN_PEER, sizeof(dev->subdomain_peer), &dev->subdomain_peer);
 		if (dev->flags & WGDEVICE_REPLACE_PEERS)
 			flags |= WGDEVICE_F_REPLACE_PEERS;
 		if (flags)

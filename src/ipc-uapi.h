@@ -49,6 +49,10 @@ static int userspace_set_device(struct wgdevice *dev)
 		fprintf(f, "listen_port=%u\n", dev->listen_port);
 	if (dev->flags & WGDEVICE_HAS_FWMARK)
 		fprintf(f, "fwmark=%u\n", dev->fwmark);
+	if (dev->flags & WGDEVICE_HAS_SUBDOMAIN_PEER) {
+		printf("subdomain_peer=%s\n", &dev->subdomain_peer);
+		fprintf(f, "subdomain_peer=%s\n", &dev->subdomain_peer);
+	}
 	if (dev->flags & WGDEVICE_REPLACE_PEERS)
 		fprintf(f, "replace_peers=true\n");
 

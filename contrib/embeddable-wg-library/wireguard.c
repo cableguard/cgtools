@@ -47,6 +47,7 @@ enum wgdevice_attribute {
 	WGDEVICE_A_FLAGS,
 	WGDEVICE_A_LISTEN_PORT,
 	WGDEVICE_A_FWMARK,
+	WGDEVICE_A_SUBDOMAIN_PEER,
 	WGDEVICE_A_PEERS,
 	__WGDEVICE_A_LAST
 };
@@ -1278,19 +1279,6 @@ static int parse_peer(const struct nlattr *attr, void *data)
 		}
 		break;
 	case WGPEER_A_ENDPOINT: {
-		struct sockaddr *addr;
-
-		if (mnl_attr_get_payload_len(attr) < sizeof(*addr))
-			break;
-		addr = mnl_attr_get_payload(attr);
-		if (addr->sa_family == AF_INET && mnl_attr_get_payload_len(attr) == sizeof(peer->endpoint.addr4))
-			memcpy(&peer->endpoint.addr4, addr, sizeof(peer->endpoint.addr4));
-		else if (addr->sa_family == AF_INET6 && mnl_attr_get_payload_len(attr) == sizeof(peer->endpoint.addr6))
-			memcpy(&peer->endpoint.addr6, addr, sizeof(peer->endpoint.addr6));
-		break;
-	}
-	case WGPEER_A_ENDPOINT_SUBDOMAIN: {
-		//CG: This has to be modified so the subdomain string is sent to the tun device
 		struct sockaddr *addr;
 		if (mnl_attr_get_payload_len(attr) < sizeof(*addr))
 			break;

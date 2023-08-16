@@ -19,7 +19,7 @@ static const struct {
 } subcommands[] = {
 	{ "show", show_main, "Shows the current configuration and device information" },
 	{ "showconf", showconf_main, "Shows the current configuration of a given WireGuard interface, for use with `setconf'" },
-	{ "set", set_main, "Change the current configuration, add peers, remove peers, or change peers" },
+	{ "set", set_main, "Change the current configuration, add subdomain peer, add peers, remove peers, or change peers" },
 	{ "setconf", setconf_main, "Applies a configuration file to a WireGuard interface" },
 	{ "addconf", setconf_main, "Appends a configuration file to a WireGuard interface" },
 	{ "syncconf", setconf_main, "Synchronizes a configuration file to a WireGuard interface" },

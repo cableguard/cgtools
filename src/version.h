@@ -1,3 +1,3 @@
 #ifndef WIREGUARD_TOOLS_VERSION
-#define WIREGUARD_TOOLS_VERSION "cableguard 1.0.20230527"
+#define WIREGUARD_TOOLS_VERSION "cableguard 1.0.20230815"
 #endif
