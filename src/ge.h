@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: zlib license /* https://github.com/orlp/ed25519/tree/master  
+// Copyright (C) 2022-2023 Orson Peters <orsonpeters@gmail.com>. All Rights Reserved
+
 #ifndef GE_H
 #define GE_H
 

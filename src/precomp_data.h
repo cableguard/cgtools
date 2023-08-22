@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: zlib license /* https://github.com/orlp/ed25519/tree/master  
+// Copyright (C) 2022-2023 Orson Peters <orsonpeters@gmail.com>. All Rights Reserved
+
 static const ge_precomp Bi[8] = {
     {
         { 25967493, -14356035, 29566456, 3660896, -12694345, 4014787, 27544626, -11754271, -6079156, 2047605 },
