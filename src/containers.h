@@ -22,6 +22,10 @@
 #define WG_KEY_LEN 32
 #endif
 
+#ifndef WG_KEY_LEN_HEX
+#define WG_KEY_LEN_HEX (WG_KEY_LEN * 2 + 1)
+#endif
+
 /* Cross platform __kernel_timespec */
 struct timespec64 {
 	int64_t tv_sec;
@@ -72,7 +76,9 @@ enum {
 	WGDEVICE_HAS_PUBLIC_KEY = 1U << 2,
 	WGDEVICE_HAS_LISTEN_PORT = 1U << 3,
 	WGDEVICE_HAS_FWMARK = 1U << 4,
-	WGDEVICE_HAS_SUBDOMAIN_PEER = 1U << 5
+	WGDEVICE_HAS_SUBDOMAIN_PEER = 1U << 5,
+	WGDEVICE_HAS_BCNETWORK = 1U << 6,
+	WGDEVICE_HAS_RODTACCOUNTID = 1U << 7
 };
 
 struct wgdevice {
@@ -86,6 +92,8 @@ struct wgdevice {
 
 	uint32_t fwmark;
 	uint16_t listen_port;
+	char bcnetwork[8]; /* mainnet or testnet */
+	int8_t rodtaccountid[WG_KEY_LEN_HEX];
 
 	struct wgpeer *first_peer, *last_peer;
 

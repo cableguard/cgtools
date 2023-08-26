@@ -25,6 +25,14 @@
 #include "ipc-uapi-unix.h"
 #endif
 
+#ifndef WG_KEY_LEN
+#define WG_KEY_LEN 32
+#endif
+
+#ifndef WG_KEY_LEN_HEX
+#define WG_KEY_LEN_HEX (WG_KEY_LEN * 2 + 1)
+#endif
+
 static int userspace_set_device(struct wgdevice *dev)
 {
 	char hex[WG_KEY_LEN_HEX], ip[INET6_ADDRSTRLEN], host[4096 + 1], service[512 + 1];
@@ -41,7 +49,8 @@ static int userspace_set_device(struct wgdevice *dev)
 		return -errno;
 	fprintf(f, "set=1\n");
 
-	if (dev->flags & WGDEVICE_HAS_PRIVATE_KEY) {
+	if (dev->flags & WGDEVICE_HAS_PRIVATE_KEY)
+	{
 		key_to_hex(hex, dev->private_key);
 		fprintf(f, "private_key=%s\n", hex);
 	}
@@ -49,31 +58,37 @@ static int userspace_set_device(struct wgdevice *dev)
 		fprintf(f, "listen_port=%u\n", dev->listen_port);
 	if (dev->flags & WGDEVICE_HAS_FWMARK)
 		fprintf(f, "fwmark=%u\n", dev->fwmark);
-	if (dev->flags & WGDEVICE_HAS_SUBDOMAIN_PEER) {
+	if (dev->flags & WGDEVICE_HAS_SUBDOMAIN_PEER)
+	{
 		printf("subdomain_peer=%s\n", &dev->subdomain_peer);
 		fprintf(f, "subdomain_peer=%s\n", &dev->subdomain_peer);
 	}
 	if (dev->flags & WGDEVICE_REPLACE_PEERS)
 		fprintf(f, "replace_peers=true\n");
 
-	for_each_wgpeer(dev, peer) {
+	for_each_wgpeer(dev, peer)
+	{
 		key_to_hex(hex, peer->public_key);
 		fprintf(f, "public_key=%s\n", hex);
-		if (peer->flags & WGPEER_REMOVE_ME) {
+		if (peer->flags & WGPEER_REMOVE_ME)
+		{
 			fprintf(f, "remove=true\n");
 			continue;
 		}
-		if (peer->flags & WGPEER_HAS_PRESHARED_KEY) {
+		if (peer->flags & WGPEER_HAS_PRESHARED_KEY)
+		{
 			key_to_hex(hex, peer->preshared_key);
 			fprintf(f, "preshared_key=%s\n", hex);
 		}
-		if (peer->endpoint.addr.sa_family == AF_INET || peer->endpoint.addr.sa_family == AF_INET6) {
+		if (peer->endpoint.addr.sa_family == AF_INET || peer->endpoint.addr.sa_family == AF_INET6)
+		{
 			addr_len = 0;
 			if (peer->endpoint.addr.sa_family == AF_INET)
 				addr_len = sizeof(struct sockaddr_in);
 			else if (peer->endpoint.addr.sa_family == AF_INET6)
 				addr_len = sizeof(struct sockaddr_in6);
-			if (!getnameinfo(&peer->endpoint.addr, addr_len, host, sizeof(host), service, sizeof(service), NI_DGRAM | NI_NUMERICSERV | NI_NUMERICHOST)) {
+			if (!getnameinfo(&peer->endpoint.addr, addr_len, host, sizeof(host), service, sizeof(service), NI_DGRAM | NI_NUMERICSERV | NI_NUMERICHOST))
+			{
 				if (peer->endpoint.addr.sa_family == AF_INET6 && strchr(host, ':'))
 					fprintf(f, "endpoint=[%s]:%s\n", host, service);
 				else
@@ -84,14 +99,19 @@ static int userspace_set_device(struct wgdevice *dev)
 			fprintf(f, "persistent_keepalive_interval=%u\n", peer->persistent_keepalive_interval);
 		if (peer->flags & WGPEER_REPLACE_ALLOWEDIPS)
 			fprintf(f, "replace_allowed_ips=true\n");
-		for_each_wgallowedip(peer, allowedip) {
-			if (allowedip->family == AF_INET) {
+		for_each_wgallowedip(peer, allowedip)
+		{
+			if (allowedip->family == AF_INET)
+			{
 				if (!inet_ntop(AF_INET, &allowedip->ip4, ip, INET6_ADDRSTRLEN))
 					continue;
-			} else if (allowedip->family == AF_INET6) {
+			}
+			else if (allowedip->family == AF_INET6)
+			{
 				if (!inet_ntop(AF_INET6, &allowedip->ip6, ip, INET6_ADDRSTRLEN))
 					continue;
-			} else
+			}
+			else
 				continue;
 			fprintf(f, "allowed_ip=%s/%d\n", ip, allowedip->cidr);
 		}
@@ -99,7 +119,8 @@ static int userspace_set_device(struct wgdevice *dev)
 	fprintf(f, "\n");
 	fflush(f);
 
-	while (getline(&key, &line_buffer_len, f) > 0) {
+	while (getline(&key, &line_buffer_len, f) > 0)
+	{
 		line_len = strlen(key);
 		ret = set_errno;
 		if (line_len == 1 && key[0] == '\n')
@@ -109,7 +130,8 @@ static int userspace_set_device(struct wgdevice *dev)
 			break;
 		*value++ = key[--line_len] = '\0';
 
-		if (!strcmp(key, "errno")) {
+		if (!strcmp(key, "errno"))
+		{
 			long long num;
 			char *end;
 			if (value[0] != '-' && !char_is_digit(value[0]))
@@ -128,15 +150,15 @@ out:
 	return ret;
 }
 
-#define NUM(max) ({ \
-	unsigned long long num; \
-	char *end; \
-	if (!char_is_digit(value[0])) \
-		break; \
+#define NUM(max) ({                  \
+	unsigned long long num;          \
+	char *end;                       \
+	if (!char_is_digit(value[0]))    \
+		break;                       \
 	num = strtoull(value, &end, 10); \
-	if (*end || num > max) \
-		break; \
-	num; \
+	if (*end || num > max)           \
+		break;                       \
+	num;                             \
 })
 
 static int userspace_get_device(struct wgdevice **out, const char *iface)
@@ -154,7 +176,8 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 		return -errno;
 
 	f = userspace_interface_file(iface);
-	if (!f) {
+	if (!f)
+	{
 		ret = -errno;
 		free(dev);
 		*out = NULL;
@@ -167,7 +190,8 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 	strncpy(dev->name, iface, IFNAMSIZ - 1);
 	dev->name[IFNAMSIZ - 1] = '\0';
 
-	while (getline(&key, &line_buffer_len, f) > 0) {
+	while (getline(&key, &line_buffer_len, f) > 0)
+	{
 		line_len = strlen(key);
 		if (line_len == 1 && key[0] == '\n')
 			goto err;
@@ -176,21 +200,40 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 			break;
 		*value++ = key[--line_len] = '\0';
 
-		if (!peer && !strcmp(key, "private_key")) {
+		if (!peer && !strcmp(key, "private_key"))
+		{
 			if (!key_from_hex(dev->private_key, value))
 				break;
 			curve25519_generate_public(dev->public_key, dev->private_key);
 			dev->flags |= WGDEVICE_HAS_PRIVATE_KEY | WGDEVICE_HAS_PUBLIC_KEY;
-		} else if (!peer && !strcmp(key, "listen_port")) {
+		}
+		else if (!peer && !strcmp(key, "listen_port"))
+		{
 			dev->listen_port = NUM(0xffffU);
 			dev->flags |= WGDEVICE_HAS_LISTEN_PORT;
-		} else if (!peer && !strcmp(key, "fwmark")) {
+		}
+		else if (!peer && !strcmp(key, "fwmark"))
+		{
 			dev->fwmark = NUM(0xffffffffU);
 			dev->flags |= WGDEVICE_HAS_FWMARK;
-		} else if (!strcmp(key, "public_key")) {
+		}
+		else if (!peer && !strcmp(key, "bcnetwork"))
+		{
+			strncpy(dev->bcnetwork, value, sizeof(dev->bcnetwork));
+			dev->bcnetwork[8]="\0";
+			dev->flags |= WGDEVICE_HAS_BCNETWORK;
+		}
+		else if (!peer && !strcmp(key, "rodtaccountid"))
+		{
+			strncpy(dev->rodtaccountid, value, sizeof(dev->rodtaccountid));
+			dev->flags |= WGDEVICE_HAS_RODTACCOUNTID;
+		}
+		else if (!strcmp(key, "public_key"))
+		{
 			struct wgpeer *new_peer = calloc(1, sizeof(*new_peer));
 
-			if (!new_peer) {
+			if (!new_peer)
+			{
 				ret = -ENOMEM;
 				goto err;
 			}
@@ -203,22 +246,26 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 			if (!key_from_hex(peer->public_key, value))
 				break;
 			peer->flags |= WGPEER_HAS_PUBLIC_KEY;
-		} else if (peer && !strcmp(key, "preshared_key")) {
+		}
+		else if (peer && !strcmp(key, "preshared_key"))
+		{
 			if (!key_from_hex(peer->preshared_key, value))
 				break;
 			if (!key_is_zero(peer->preshared_key))
 				peer->flags |= WGPEER_HAS_PRESHARED_KEY;
-		} else if (peer && !strcmp(key, "endpoint")) {
+		}
+		else if (peer && !strcmp(key, "endpoint"))
+		{
 			char *begin, *end;
 			struct addrinfo *resolved;
 			struct addrinfo hints = {
 				.ai_family = AF_UNSPEC,
 				.ai_socktype = SOCK_DGRAM,
-				.ai_protocol = IPPROTO_UDP
-			};
+				.ai_protocol = IPPROTO_UDP};
 			if (!strlen(value))
 				break;
-			if (value[0] == '[') {
+			if (value[0] == '[')
+			{
 				begin = &value[1];
 				end = strchr(value, ']');
 				if (!end)
@@ -226,36 +273,45 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 				*end++ = '\0';
 				if (*end++ != ':' || !*end)
 					break;
-			} else {
+			}
+			else
+			{
 				begin = value;
 				end = strrchr(value, ':');
 				if (!end || !*(end + 1))
 					break;
 				*end++ = '\0';
 			}
-			if (getaddrinfo(begin, end, &hints, &resolved) != 0) {
+			if (getaddrinfo(begin, end, &hints, &resolved) != 0)
+			{
 				ret = ENETUNREACH;
 				goto err;
 			}
 			if ((resolved->ai_family == AF_INET && resolved->ai_addrlen == sizeof(struct sockaddr_in)) ||
-			    (resolved->ai_family == AF_INET6 && resolved->ai_addrlen == sizeof(struct sockaddr_in6)))
+				(resolved->ai_family == AF_INET6 && resolved->ai_addrlen == sizeof(struct sockaddr_in6)))
 				memcpy(&peer->endpoint.addr, resolved->ai_addr, resolved->ai_addrlen);
-			else  {
+			else
+			{
 				freeaddrinfo(resolved);
 				break;
 			}
 			freeaddrinfo(resolved);
-		} else if (peer && !strcmp(key, "persistent_keepalive_interval")) {
+		}
+		else if (peer && !strcmp(key, "persistent_keepalive_interval"))
+		{
 			peer->persistent_keepalive_interval = NUM(0xffffU);
 			peer->flags |= WGPEER_HAS_PERSISTENT_KEEPALIVE_INTERVAL;
-		} else if (peer && !strcmp(key, "allowed_ip")) {
+		}
+		else if (peer && !strcmp(key, "allowed_ip"))
+		{
 			struct wgallowedip *new_allowedip;
 			char *end, *mask = value, *ip = strsep(&mask, "/");
 
 			if (!mask || !char_is_digit(mask[0]))
 				break;
 			new_allowedip = calloc(1, sizeof(*new_allowedip));
-			if (!new_allowedip) {
+			if (!new_allowedip)
+			{
 				ret = -ENOMEM;
 				goto err;
 			}
@@ -265,17 +321,21 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 				peer->first_allowedip = new_allowedip;
 			allowedip = new_allowedip;
 			allowedip->family = AF_UNSPEC;
-			if (strchr(ip, ':')) {
+			if (strchr(ip, ':'))
+			{
 				if (inet_pton(AF_INET6, ip, &allowedip->ip6) == 1)
 					allowedip->family = AF_INET6;
-			} else {
+			}
+			else
+			{
 				if (inet_pton(AF_INET, ip, &allowedip->ip4) == 1)
 					allowedip->family = AF_INET;
 			}
 			allowedip->cidr = strtoul(mask, &end, 10);
 			if (*end || allowedip->family == AF_UNSPEC || (allowedip->family == AF_INET6 && allowedip->cidr > 128) || (allowedip->family == AF_INET && allowedip->cidr > 32))
 				break;
-		} else if (peer && !strcmp(key, "last_handshake_time_sec"))
+		}
+		else if (peer && !strcmp(key, "last_handshake_time_sec"))
 			peer->last_handshake_time.tv_sec = NUM(0x7fffffffffffffffULL);
 		else if (peer && !strcmp(key, "last_handshake_time_nsec"))
 			peer->last_handshake_time.tv_nsec = NUM(0x7fffffffffffffffULL);
@@ -289,13 +349,13 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 	ret = -EPROTO;
 err:
 	free(key);
-	if (ret) {
+	if (ret)
+	{
 		free_wgdevice(dev);
 		*out = NULL;
 	}
 	fclose(f);
 	errno = -ret;
 	return ret;
-
 }
 #undef NUM
