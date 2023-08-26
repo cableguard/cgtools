@@ -220,6 +220,10 @@ static void pretty_print(struct wgdevice *device)
 		terminal_printf("  " TERMINAL_BOLD "listening port" TERMINAL_RESET ": %u\n", device->listen_port);
 	if (device->fwmark)
 		terminal_printf("  " TERMINAL_BOLD "fwmark" TERMINAL_RESET ": 0x%x\n", device->fwmark);
+	if (device->bcnetwork)
+		terminal_printf("  " TERMINAL_BOLD "Blockchain network" TERMINAL_RESET ": %s\n", device->bcnetwork);
+	if (device->rodtaccountid)
+		terminal_printf("  " TERMINAL_BOLD "RODT account id" TERMINAL_RESET ": %s\n", device->rodtaccountid);
 	if (device->first_peer) {
 		sort_peers(device);
 		terminal_printf("\n");
