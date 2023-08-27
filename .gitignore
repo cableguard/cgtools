@@ -16,3 +16,5 @@ src/wg.exe
 *.pro.user
 maint/
 .vscode/
+account
+dev-account
