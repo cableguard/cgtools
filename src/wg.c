@@ -26,6 +26,7 @@ static const struct {
 	{ "genkey", genkey_main, "Generates a new private key and writes it to stdout" },
 	{ "genpsk", genkey_main, "Generates a new preshared key and writes it to stdout" },
 	{ "pubkey", pubkey_main, "Reads a private key from stdin and writes a public key to stdout" },
+	{ "subdomain-peer", set_main, "Adds a cableguard subdomain peer" },
 	{ "genaccount", genaccount_main, "Generates a new private key and accountID and writes it to a file with the name accountID.json in the ~/.near-credential directory" }
 };
 
