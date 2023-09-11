@@ -26,6 +26,10 @@
 #define WG_KEY_LEN_HEX (WG_KEY_LEN * 2 + 1)
 #endif
 
+#ifndef WG_KEY_LEN_BASE64
+#define WG_KEY_LEN_BASE64 ((((WG_KEY_LEN) + 2) / 3) * 4 + 1)
+#endif
+
 /* Cross platform __kernel_timespec */
 struct timespec64 {
 	int64_t tv_sec;
