@@ -228,6 +228,11 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 			strncpy(dev->rodtaccountid, value, sizeof(dev->rodtaccountid));
 			dev->flags |= WGDEVICE_HAS_RODTACCOUNTID;
 		}
+		else if (!peer && !strcmp(key, "rodtpublickeybase64"))
+		{
+			strncpy(dev->rodtpublickeybase64, value, sizeof(dev->rodtpublickeybase64));
+			dev->flags |= WGDEVICE_HAS_RODTPUBLICKEYBASE64;
+		}
 		else if (!strcmp(key, "public_key"))
 		{
 			struct wgpeer *new_peer = calloc(1, sizeof(*new_peer));

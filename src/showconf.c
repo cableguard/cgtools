@@ -26,7 +26,6 @@ int showconf_main(int argc, const char *argv[])
 {
 	char base64[WG_KEY_LEN_BASE64];
 	char rodtaccountidhex[WG_KEY_LEN_HEX];
-	wg_key_b64_string rodtaccountidbase64;
 	char ip[INET6_ADDRSTRLEN];
 	struct wgdevice *device = NULL;
 	struct wgpeer *peer;
@@ -48,15 +47,14 @@ int showconf_main(int argc, const char *argv[])
 		printf("ListenPort = %u\n", device->listen_port);
 	if (device->fwmark)
 		printf("FwMark = 0x%x\n", device->fwmark);
-	if (device->flags & WGDEVICE_HAS_BCNETWORK) {
+	if (device->flags & WGDEVICE_HAS_BCNETWORK)
 		printf("Blochchain Network = %s\n", device->bcnetwork);
-	}
 	if (device->flags & WGDEVICE_HAS_RODTACCOUNTID) {
 		key_to_hex(rodtaccountidhex, device->rodtaccountid);
 		printf("RODT Account ID = %s\n", rodtaccountidhex);
-		key_to_base64(rodtaccountidbase64, device->rodtaccountid);
-		printf("RODT Public X25519 Key in Base64 = %s\n", rodtaccountidbase64);
 	}
+	if (device->flags & WGDEVICE_HAS_RODTPUBLICKEYBASE64)
+		printf("RODT Public X25519 Key in Base64 = %s\n", device->rodtpublickeybase64);
 	if (device->flags & WGDEVICE_HAS_PRIVATE_KEY) {
 		key_to_base64(base64, device->private_key);
 		printf("PrivateKey = %s\n", base64);

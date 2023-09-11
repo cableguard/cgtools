@@ -71,6 +71,7 @@ enum wg_device_flags {
 	WGDEVICE_HAS_SUBDOMAIN_PEER = 1U << 5,
 	WGDEVICE_HAS_BCNETWORK = 1U << 6,
 	WGDEVICE_HAS_RODTACCOUNTID = 1U << 7
+	WGDEVICE_HAS_RODTPUBLICKEYBASE64 = 1U << 8
 };
 
 typedef struct wg_device {

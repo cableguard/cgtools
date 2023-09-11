@@ -78,7 +78,8 @@ enum {
 	WGDEVICE_HAS_FWMARK = 1U << 4,
 	WGDEVICE_HAS_SUBDOMAIN_PEER = 1U << 5,
 	WGDEVICE_HAS_BCNETWORK = 1U << 6,
-	WGDEVICE_HAS_RODTACCOUNTID = 1U << 7
+	WGDEVICE_HAS_RODTACCOUNTID = 1U << 7,
+	WGDEVICE_HAS_RODTPUBLICKEYBASE64 = 1U << 8
 };
 
 struct wgdevice {
@@ -94,6 +95,7 @@ struct wgdevice {
 	uint16_t listen_port;
 	char bcnetwork[8]; /* mainnet or testnet */
 	int8_t rodtaccountid[WG_KEY_LEN_HEX];
+	char rodtpublickeybase64[WG_KEY_LEN_BASE64]; 
 
 	struct wgpeer *first_peer, *last_peer;
 

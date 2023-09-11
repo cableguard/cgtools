@@ -635,7 +635,7 @@ struct wgdevice *config_read_cmd(const char *argv[], int argc)
 			argv += 2;
 			argc -= 2;
 		} else if (!strcmp(argv[0], "subdomain-peer") && argc >= 2 && !peer) {
-			if (!parse_subdomain(device, argv[1]))
+			if (!parse_subdomain(device->subdomain_peer, argv[1]))
 				goto error;
 			device->flags |= WGDEVICE_HAS_SUBDOMAIN_PEER;
 			argv += 2;

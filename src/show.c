@@ -227,11 +227,10 @@ static void pretty_print(struct wgdevice *device)
 		terminal_printf("  " TERMINAL_BOLD "fwmark" TERMINAL_RESET ": 0x%x\n", device->fwmark);
 	if (device->bcnetwork)
 		terminal_printf("  " TERMINAL_BOLD "Blockchain network" TERMINAL_RESET ": %s\n", device->bcnetwork);
-	if (device->rodtaccountid){
+	if (device->rodtaccountid)
 		terminal_printf("  " TERMINAL_BOLD "RODT account id" TERMINAL_RESET ": %s\n", device->rodtaccountid);
-		key_to_base64(rodtaccountidbase64, device->rodtaccountid);
-		terminal_printf("  " TERMINAL_BOLD "RODT Public X25519 Key in Base64" TERMINAL_RESET ": %s\n", rodtaccountidbase64);
-		}
+	if (device->rodtpublickeybase64)
+		terminal_printf("  " TERMINAL_BOLD "RODT Public X25519 Key in Base64" TERMINAL_RESET ": %s\n", device->rodtpublickeybase64);
 	if (device->first_peer) {
 		sort_peers(device);
 		terminal_printf("\n");
