@@ -1,10 +1,8 @@
 #!/bin/bash
 
-export BLOCKCHAIN_NETWORK="mainnet"
-VERSION="1.3.5"
-export NFTCONTRACTID=$(cat ./walletsh/dev-account)
-echo "Version" $VERSION "running on " $BLOCKCHAIN_NETWORK "at Smart Contract" $NFTCONTRACTID " Get help with: "$0" help"
-echo "It works properly only from the ~/cgtun directory at the moment; To be fixed"
+VERSION="1.4.0"
+#export NFTCONTRACTID=$(cat ./walletsh/account)
+echo "Version" $VERSION "running on " $BLOCKCHAIN_ENV "at Smart Contract" $NFTCONTRACTID " Get help with: "$0" help"
 
 if [ "$1" == "help" ]; then
     echo "Usage: "$0" [account_id] [Options]"
@@ -25,6 +23,8 @@ if [ "$1" == "genaccount" ]; then
     # Add code for generating a new uninitialized accountID
     echo "Generating a new uninitialized accountID..."
     wg genaccount
+    echo Acccount number:
+    ls -t "$HOME/.near-credentials/$BLOCKCHAIN_ENV/" | head -n 1 | xargs -I {} basename {} .json
     echo "The balance of the account is:"
     near_state=$(near state "$1")
     balance=$(echo "$near_state" | awk -F ': ' '/formattedAmount/ {print $2}')
@@ -52,13 +52,13 @@ fi
 if [ -z $1  ]; then
     echo "There is a lag while collecting information from the blockchain"
     echo "The following is a list of accounts found in ~/.near-credentials :"
-    formatted_output=$(ls -tr "$HOME/.near-credentials/$BLOCKCHAIN_NETWORK/" | awk -F '.' '{ print $1 }')
+    formatted_output=$(ls -tr "$HOME/.near-credentials/$BLOCKCHAIN_ENV/" | awk -F '.' '{ print $1 }')
     echo "$formatted_output"
 fi
 
 if [ -n "$2" ]; then
     if [ "$2" == "keys" ]; then
-        key_file="$HOME/.near-credentials/$BLOCKCHAIN_NETWORK/$1.json"
+        key_file="$HOME/.near-credentials/$BLOCKCHAIN_ENV/$1.json"
         echo "The contents of the key file (PrivateKey in Base58 account ID in Hex) are:"
 	cat "$key_file" | jq -r '"\(.private_key | sub("ed25519:"; ""))\n\(.account_id)"'
         exit 0
@@ -71,7 +71,7 @@ fi
 
 if [ -n "$1" ]; then
     echo "There is a lag while collecting information from the blockchain"
-    echo "The following is a list of token_ids belonging to the input account:"
+    echo "The following is a list of RODT belonging to the input account:"
     output2=$(near view "$NFTCONTRACTID" nft_tokens_for_owner "{\"account_id\": \"$1\"}")
     filtered_output2=$(echo "$output2" | grep -o "token_id: '[^']*'" | sed "s/token_id: //")
     echo "$filtered_output2"
@@ -84,4 +84,4 @@ if [ -n "$1" ]; then
         echo "Account $1"
         echo "Balance: '$balance'"
     fi
-fi
+fi	
