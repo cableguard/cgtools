@@ -24,6 +24,10 @@
 #include "encoding.h"
 #include "subcommands.h"
 
+/* This needs to be in a single file*/
+typedef uint8_t wg_key[32];
+typedef char wg_key_b64_string[((sizeof(wg_key) + 2) / 3) * 4 + 1];
+
 static int peer_cmp(const void *first, const void *second)
 {
 	time_t diff;
@@ -209,6 +213,7 @@ static void pretty_print(struct wgdevice *device)
 {
 	struct wgpeer *peer;
 	struct wgallowedip *allowedip;
+	wg_key_b64_string rodtaccountidbase64;
 
 	terminal_printf(TERMINAL_RESET);
 	terminal_printf(TERMINAL_FG_GREEN TERMINAL_BOLD "interface" TERMINAL_RESET ": " TERMINAL_FG_GREEN "%s" TERMINAL_RESET "\n", device->name);
@@ -222,8 +227,11 @@ static void pretty_print(struct wgdevice *device)
 		terminal_printf("  " TERMINAL_BOLD "fwmark" TERMINAL_RESET ": 0x%x\n", device->fwmark);
 	if (device->bcnetwork)
 		terminal_printf("  " TERMINAL_BOLD "Blockchain network" TERMINAL_RESET ": %s\n", device->bcnetwork);
-	if (device->rodtaccountid)
+	if (device->rodtaccountid){
 		terminal_printf("  " TERMINAL_BOLD "RODT account id" TERMINAL_RESET ": %s\n", device->rodtaccountid);
+		key_to_base64(rodtaccountidbase64, device->rodtaccountid);
+		terminal_printf("  " TERMINAL_BOLD "RODT Public X25519 Key in Base64" TERMINAL_RESET ": %s\n", rodtaccountidbase64);
+		}
 	if (device->first_peer) {
 		sort_peers(device);
 		terminal_printf("\n");

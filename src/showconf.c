@@ -18,10 +18,15 @@
 #include "ipc.h"
 #include "subcommands.h"
 
+/* This needs to be in a single file*/
+typedef uint8_t wg_key[32];
+typedef char wg_key_b64_string[((sizeof(wg_key) + 2) / 3) * 4 + 1];
+
 int showconf_main(int argc, const char *argv[])
 {
 	char base64[WG_KEY_LEN_BASE64];
 	char rodtaccountidhex[WG_KEY_LEN_HEX];
+	wg_key_b64_string rodtaccountidbase64;
 	char ip[INET6_ADDRSTRLEN];
 	struct wgdevice *device = NULL;
 	struct wgpeer *peer;
@@ -49,6 +54,8 @@ int showconf_main(int argc, const char *argv[])
 	if (device->flags & WGDEVICE_HAS_RODTACCOUNTID) {
 		key_to_hex(rodtaccountidhex, device->rodtaccountid);
 		printf("RODT Account ID = %s\n", rodtaccountidhex);
+		key_to_base64(rodtaccountidbase64, device->rodtaccountid);
+		printf("RODT Public X25519 Key in Base64 = %s\n", rodtaccountidbase64);
 	}
 	if (device->flags & WGDEVICE_HAS_PRIVATE_KEY) {
 		key_to_base64(base64, device->private_key);
