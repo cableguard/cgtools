@@ -4,9 +4,10 @@
  *
  */
 
+#include <assert.h>
 #include <sys/nv.h>
 #include <sys/sockio.h>
-#include <dev/if_wg/if_wg.h>
+#include <dev/wg/if_wg.h>
 
 #define IPC_SUPPORTS_KERNEL_INTERFACE
 

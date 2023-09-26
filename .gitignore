@@ -18,3 +18,5 @@ maint/
 .vscode/
 account
 dev-account
+src/debian
+*.tar.xz
