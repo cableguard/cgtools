@@ -101,12 +101,13 @@ static inline bool __attribute__((__warn_unused_result__)) get_random_bytes(uint
 
 static const char b58digits_ordered[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
-bool b58enc(char *b58, size_t *b58sz, const char *datatoconvert, size_t binsz)
+bool b58enc(char *b58, size_t *b58sz, const void *inputdata, size_t binsz)
 {
 	int carry;
 	size_t i, j, high;
 	int zcount = 0;
 	size_t size;
+	const uint8_t *datatoconvert=inputdata;
 
 	for (zcount = 0; zcount < binsz; ++zcount) {
 		if (datatoconvert[zcount] == '\0') {
