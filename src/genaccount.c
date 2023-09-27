@@ -109,7 +109,7 @@ bool b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz)
 	size_t size;
 
 	for (zcount = 0; zcount < binsz; ++zcount) {
-		if (bin[zcount] == 0) {
+		if (bin[zcount] == '\0') {
 			break;
 		}
 	}
