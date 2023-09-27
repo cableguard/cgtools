@@ -107,9 +107,9 @@ bool b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz)
 	int carry;
 	size_t i, j, high, zcount = 0;
 	size_t size;
-	
-	while (zcount < binsz && !bin[zcount])
-		++zcount;
+
+	for (zcount = 0; zcount < binsz && !bin[zcount]; ++zcount);
+	/*	while (zcount < binsz && !bin[zcount]) ++zcount; */
 	
 	size = (binsz - zcount) * 138 / 100 + 1;
 	uint8_t buf[size];
