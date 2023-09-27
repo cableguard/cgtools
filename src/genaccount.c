@@ -108,7 +108,11 @@ bool b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz)
 	size_t i, j, high, zcount = 0;
 	size_t size;
 
-	for (zcount = 0; zcount < binsz && !bin[zcount]; ++zcount);
+	for (zcount = 0; zcount < binsz; ++zcount) {
+		if (bin[zcount] == 0) {
+			break;
+		}
+	}
 	/*	while (zcount < binsz && !bin[zcount]) ++zcount; */
 	
 	size = (binsz - zcount) * 138 / 100 + 1;
@@ -190,19 +194,23 @@ int genaccount_main(int argc, const char *argv[])
 	b58enc(public_base58key, &publickeylenbase58ptr, public_hexkey, WG_KEY_LEN);
 
 	// This works for Linux only for the time being
-	if (getenv("HOME") == NULL) {
+	char *home_env = getenv("HOME");
+	if (home_env == NULL) {
 		fprintf(stderr, "Error: Unable to determine home directory.\n");
 		return 1;
 	} else {
-		strcpy(home_dir, getenv("HOME"));
+		strncpy(home_dir, home_env, sizeof(home_dir) - 1);
+		home_dir[sizeof(home_dir) - 1] = '\0'; // Ensure null-termination
 	}
 
 	// This works for Linux only for the time being
-	if (getenv("BLOCKCHAIN_ENV") == NULL) {
+	char *blockchain_env = getenv("BLOCKCHAIN_ENV");
+	if (blockchain_env == NULL) {
 		fprintf(stderr, "Error: Unable to determine BLOCKCHAIN_ENV: mainnet/testnet?.\n");
 		return 1;
 	} else {
-		strcpy(home_dir, getenv("HOME"));
+		strncpy(home_dir, blockchain_env, sizeof(home_dir) - 1);
+		home_dir[sizeof(home_dir) - 1] = '\0'; // Ensure null-termination
 	}
 
 	for (int i = 0; i < WG_KEY_LEN; i++) {
