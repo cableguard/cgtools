@@ -105,7 +105,8 @@ bool b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz)
 {
 	const uint8_t *bin = data;
 	int carry;
-	size_t i, j, high, zcount = 0;
+	size_t i, j, high;
+	int zcount = 0;
 	size_t size;
 
 	for (zcount = 0; zcount < binsz; ++zcount) {
