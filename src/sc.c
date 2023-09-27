@@ -167,8 +167,8 @@ void sc_reduce(unsigned char *s) {
     s7 -= s16 * 997805;
     s8 += s16 * 136657;
     s9 -= s16 * 683901;
-    s16 = 0;
-    s3 += s15 * 666643;
+/*    s16 = 0;
+*/    s3 += s15 * 666643;
     s4 += s15 * 470296;
     s5 += s15 * 654183;
     s6 -= s15 * 997805;
@@ -188,8 +188,8 @@ void sc_reduce(unsigned char *s) {
     s4 -= s13 * 997805;
     s5 += s13 * 136657;
     s6 -= s13 * 683901;
-    s13 = 0;
-    s0 += s12 * 666643;
+/*    s13 = 0;
+*/    s0 += s12 * 666643;
     s1 += s12 * 470296;
     s2 += s12 * 654183;
     s3 -= s12 * 997805;
@@ -742,8 +742,8 @@ void sc_muladd(unsigned char *s, const unsigned char *a, const unsigned char *b,
     s3 -= s12 * 997805;
     s4 += s12 * 136657;
     s5 -= s12 * 683901;
-    s12 = 0;
-    carry0 = s0 >> 21;
+/*    s12 = 0;
+*/    carry0 = s0 >> 21;
     s1 += carry0;
     s0 -= carry0 << 21;
     carry1 = s1 >> 21;
