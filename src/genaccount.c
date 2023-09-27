@@ -101,7 +101,7 @@ static inline bool __attribute__((__warn_unused_result__)) get_random_bytes(uint
 
 static const char b58digits_ordered[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
-bool b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz)
+bool b58enc(char *b58, size_t *b58sz, const char *data, size_t binsz)
 {
 	const uint8_t *bin = data;
 	int carry;
