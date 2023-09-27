@@ -19,6 +19,7 @@
 #include "ipc.h"
 #include "encoding.h"
 #include "ctype.h"
+#include <ctype.h>
 
 #define COMMENT_CHAR '#'
 

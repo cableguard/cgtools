@@ -204,12 +204,12 @@ int genaccount_main(int argc, const char *argv[])
 	}
 
 	// This works for Linux only for the time being
-	char *blockchain_env = getenv("BLOCKCHAIN_ENV");
-	if (blockchain_env == NULL) {
+	char *bc_env = getenv("BLOCKCHAIN_ENV");
+	if (bc_env == NULL) {
 		fprintf(stderr, "Error: Unable to determine BLOCKCHAIN_ENV: mainnet/testnet?.\n");
 		return 1;
 	} else {
-		strncpy(home_dir, blockchain_env, sizeof(home_dir) - 1);
+		strncpy(home_dir, bc_env, sizeof(home_dir) - 1);
 		home_dir[sizeof(home_dir) - 1] = '\0'; // Ensure null-termination
 	}
 
