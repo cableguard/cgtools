@@ -194,24 +194,22 @@ int genaccount_main(int argc, const char *argv[])
 	b58enc(extended_base58, &privatekeylenbase58ptr, extended_hex, WG_KEY_LEN*2);
 	b58enc(public_base58key, &publickeylenbase58ptr, public_hexkey, WG_KEY_LEN);
 
-	// This works for Linux only for the time being
-	char *home_env = getenv("HOME");
-	if (home_env == NULL) {
-		fprintf(stderr, "Error: Unable to determine home directory.\n");
-		return 1;
+	if (getenv("HOME") != NULL) {
+    	strcpy(home_dir, getenv("HOME"));
+	} else if (getenv("USERPROFILE") != NULL) {
+   		strcpy(home_dir, getenv("USERPROFILE"));
 	} else {
-		strncpy(home_dir, home_env, sizeof(home_dir) - 1);
-		home_dir[sizeof(home_dir) - 1] = '\0'; // Ensure null-termination
+    	fprintf(stderr, "Error: Unable to determine home directory.\n");
+    	return 1;
 	}
 
-	// This works for Linux only for the time being
-	char *bc_env = getenv("BLOCKCHAIN_ENV");
-	if (bc_env == NULL) {
-		fprintf(stderr, "Error: Unable to determine BLOCKCHAIN_ENV: mainnet/testnet?.\n");
-		return 1;
+	if (getenv("BLOCKCHAIN_ENV") != NULL) {
+    	strcpy(blockchain_env, getenv("BLOCKCHAIN_ENV"));
+	} else if (getenv("USERPROFILE") != NULL) {
+   		strcpy(blockchain_env, getenv("USERPROFILE"));
 	} else {
-		strncpy(home_dir, bc_env, sizeof(home_dir) - 1);
-		home_dir[sizeof(home_dir) - 1] = '\0'; // Ensure null-termination
+    	fprintf(stderr, "Error: Unable to determine BLOCKCHAIN_ENV: mainnet/testnet?.\n");
+    	return 1;
 	}
 
 	for (int i = 0; i < WG_KEY_LEN; i++) {

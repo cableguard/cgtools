@@ -10,8 +10,8 @@ Build-Depends: debhelper-compat (= 13)
 Package-List:
  cgtools deb unknown optional arch=any
 Checksums-Sha1:
- db55a5b1cfe105d2acf89736a1300940ea2b0098 122612 cgtools_0.90.tar.xz
+ 219e97b15618ff98f1a19ed1248ec5fd883e8bbc 122724 cgtools_0.90.tar.xz
 Checksums-Sha256:
- 33f4780eedd1f929c699e27f59097bb28964759489774e5f59a3d68909a943d2 122612 cgtools_0.90.tar.xz
+ bc74e1fd7b465a919f77b47aeccaf84b77932aafab6881a240f7a0744edfdf85 122724 cgtools_0.90.tar.xz
 Files:
- e69fe25d7a9f9ed39c9b63d32599cc21 122612 cgtools_0.90.tar.xz
+ 701baef8c596860499ed9c4a577813f1 122724 cgtools_0.90.tar.xz
