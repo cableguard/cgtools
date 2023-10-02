@@ -101,20 +101,15 @@ static inline bool __attribute__((__warn_unused_result__)) get_random_bytes(uint
 
 static const char b58digits_ordered[] = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
-bool b58enc(char *b58, size_t *b58sz, const void *inputdata, size_t binsz)
+bool b58enc(char *b58, size_t *b58sz, const void *data, size_t binsz)
 {
+	const uint8_t *bin = data;
 	int carry;
-	size_t i, j, high;
-	int zcount = 0;
+	size_t i, j, high, zcount = 0;
 	size_t size;
-	const uint8_t *datatoconvert=inputdata;
-
-	for (zcount = 0; zcount < binsz; ++zcount) {
-		if (datatoconvert[zcount] == '\0') {
-			break;
-		}
-	}
-	/*	while (zcount < binsz && !bin[zcount]) ++zcount; */
+	
+	while (zcount < binsz && !bin[zcount])
+		++zcount;
 	
 	size = (binsz - zcount) * 138 / 100 + 1;
 	uint8_t buf[size];
@@ -122,7 +117,7 @@ bool b58enc(char *b58, size_t *b58sz, const void *inputdata, size_t binsz)
 	
 	for (i = zcount, high = size - 1; i < binsz; ++i, high = j)
 	{
-		for (carry = datatoconvert[i], j = size - 1; (j > high) || carry; --j)
+		for (carry = bin[i], j = size - 1; (j > high) || carry; --j)
 		{
 			carry += 256 * buf[j];
 			buf[j] = carry % 58;
@@ -194,13 +189,12 @@ int genaccount_main(int argc, const char *argv[])
 	b58enc(extended_base58, &privatekeylenbase58ptr, extended_hex, WG_KEY_LEN*2);
 	b58enc(public_base58key, &publickeylenbase58ptr, public_hexkey, WG_KEY_LEN);
 
-	if (getenv("HOME") != NULL) {
-    	strcpy(home_dir, getenv("HOME"));
-	} else if (getenv("USERPROFILE") != NULL) {
-   		strcpy(home_dir, getenv("USERPROFILE"));
+	// This works for Linux only for the time being
+	if (getenv("HOME") == NULL) {
+		fprintf(stderr, "Error: Unable to determine home directory.\n");
+		return 1;
 	} else {
-    	fprintf(stderr, "Error: Unable to determine home directory.\n");
-    	return 1;
+		strcpy(home_dir, getenv("HOME"));
 	}
 
 	if (getenv("BLOCKCHAIN_ENV") != NULL) {
@@ -209,7 +203,7 @@ int genaccount_main(int argc, const char *argv[])
    		strcpy(blockchain_env, getenv("USERPROFILE"));
 	} else {
     	fprintf(stderr, "Error: Unable to determine BLOCKCHAIN_ENV: mainnet/testnet?.\n");
-    	return 1;
+    return 1;
 	}
 
 	for (int i = 0; i < WG_KEY_LEN; i++) {

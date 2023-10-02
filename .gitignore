@@ -19,3 +19,4 @@ maint/
 account
 dev-account
 *.tar.xz
+*.dsc
