@@ -222,6 +222,7 @@ int genaccount_main(int argc, const char *argv[])
         fprintf(file, "%02x", public_hexkey[i]);
         }
     fprintf(file,"\",\"public_key\":\"ed25519:%s\",\"private_key\":\"ed25519:%s\"}\n",public_base58key,extended_base58);
+	printf("Info: You need to initialized the NEAR account generated before you can use it\n");
 
     fclose(file);
 
