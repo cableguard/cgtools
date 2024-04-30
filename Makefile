@@ -15,7 +15,7 @@ RUNSTATEDIR ?= /var/run
 WITH_BASHCOMPLETION ?=
 WITH_WGQUICK ?=
 WITH_SYSTEMDUNITS ?=
-LDLIBS += -lsodium
+
 
 ifeq ($(WITH_BASHCOMPLETION),)
 ifneq ($(strip $(wildcard $(BASHCOMPDIR))),)
