@@ -48,7 +48,9 @@ int showconf_main(int argc, const char *argv[])
 	if (device->fwmark)
 		printf("FwMark = 0x%x\n", device->fwmark);
 	if (device->flags & WGDEVICE_HAS_BCNETWORK)
-		printf("Blochchain Network = %s\n", device->bcnetwork);
+		printf("Blockchain Network = %s\n", device->bcnetwork);
+	if (device->flags & WGDEVICE_HAS_DNSRESOLVER)
+		printf("DNS Resolver = %s\n", device->dnsresolver);
 	if (device->flags & WGDEVICE_HAS_RODTACCOUNTID) {
 		key_to_hex(rodtaccountidhex, device->rodtaccountid);
 		printf("RODT Account ID = %s\n", rodtaccountidhex);

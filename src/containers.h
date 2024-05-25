@@ -18,6 +18,10 @@
 #include <net/if_wg.h>
 #endif
 
+#ifndef WG_LEN_IPASTEXT
+#define WG_LEN_IPASTEXT 39
+#endif
+
 #ifndef WG_KEY_LEN
 #define WG_KEY_LEN 32
 #endif
@@ -82,8 +86,9 @@ enum {
 	WGDEVICE_HAS_FWMARK = 1U << 4,
 	WGDEVICE_HAS_SUBDOMAIN_PEER = 1U << 5,
 	WGDEVICE_HAS_BCNETWORK = 1U << 6,
-	WGDEVICE_HAS_RODTACCOUNTID = 1U << 7,
-	WGDEVICE_HAS_RODTPUBLICKEYBASE64 = 1U << 8
+	WGDEVICE_HAS_DNSRESOLVER = 1U << 7,
+	WGDEVICE_HAS_RODTACCOUNTID = 1U << 8,
+	WGDEVICE_HAS_RODTPUBLICKEYBASE64 = 1U << 9
 };
 
 struct wgdevice {
@@ -98,6 +103,7 @@ struct wgdevice {
 	uint32_t fwmark;
 	uint16_t listen_port;
 	char bcnetwork[8]; /* mainnet or testnet */
+	char dnsresolver[WG_LEN_IPASTEXT];
 	int8_t rodtaccountid[WG_KEY_LEN_HEX];
 	char rodtpublickeybase64[WG_KEY_LEN_BASE64]; 
 

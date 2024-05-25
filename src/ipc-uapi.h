@@ -223,6 +223,11 @@ static int userspace_get_device(struct wgdevice **out, const char *iface)
 			dev->bcnetwork[8]="\0";
 			dev->flags |= WGDEVICE_HAS_BCNETWORK;
 		}
+		else if (!peer && !strcmp(key, "dnsresolver"))
+		{
+			strncpy(dev->dnsresolver, value, sizeof(dev->dnsresolver));
+			dev->flags |= WGDEVICE_HAS_DNSRESOLVER;
+		}
 		else if (!peer && !strcmp(key, "rodtaccountid"))
 		{
 			strncpy(dev->rodtaccountid, value, sizeof(dev->rodtaccountid));

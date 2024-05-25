@@ -227,6 +227,8 @@ static void pretty_print(struct wgdevice *device)
 		terminal_printf("  " TERMINAL_BOLD "fwmark" TERMINAL_RESET ": 0x%x\n", device->fwmark);
 	if (device->bcnetwork)
 		terminal_printf("  " TERMINAL_BOLD "Blockchain network" TERMINAL_RESET ": %s\n", device->bcnetwork);
+	if (device->dnsresolver)
+		terminal_printf("  " TERMINAL_BOLD "DNS Resolver" TERMINAL_RESET ": %s\n", device->dnsresolver);
 	if (device->rodtaccountid)
 		terminal_printf("  " TERMINAL_BOLD "RODT account id" TERMINAL_RESET ": %s\n", device->rodtaccountid);
 	if (device->rodtpublickeybase64)
