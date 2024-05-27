@@ -5,10 +5,10 @@ Wants=network-online.target nss-lookup.target
 PartOf=wg-quick.target
 Documentation=man:wg-quick(8)
 Documentation=man:wg(8)
-Documentation=https://www.cableguard.com/
-Documentation=https://www.cableguard.com/quickstart/
-Documentation=https://github.com/alanesmizi/cableguard-wgtoolsabout/src/man/wg-quick.8
-Documentation=https://github.com/alanesmizi/cableguard-wgtoolsabout/src/man/wg.8
+Documentation=https://www.wireguard.com/
+Documentation=https://www.wireguard.com/quickstart/
+Documentation=https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8
+Documentation=https://git.zx2c4.com/wireguard-tools/about/src/man/wg.8
 
 [Service]
 Type=oneshot

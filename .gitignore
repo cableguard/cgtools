@@ -3,6 +3,7 @@ cscope.out
 *.d
 *.lib
 *.dll
+*.dsc
 *.gch
 *.dwo
 src/wg
