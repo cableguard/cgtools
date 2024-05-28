@@ -42,5 +42,3 @@ Options:
 - Cableguard TOOLS: local VPN tunnel configuration
 - Cableguard FORGE: RODT minter
 - Cableguard WALLET: RODT manager
-- Cableguard AUTH: RODT authentication for interoperability with implementation of the Triangle of Trust.
-- Cableguard FIND: Server and peer finder
