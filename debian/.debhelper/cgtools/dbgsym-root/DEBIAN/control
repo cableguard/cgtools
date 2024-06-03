@@ -1,12 +1,12 @@
 Package: cgtools-dbgsym
 Package-Type: ddeb
 Source: cgtools
-Version: 00.90.51
+Version: 00.90.53
 Auto-Built-Package: debug-symbols
 Architecture: amd64
 Maintainer: Vicente Aceituno Canal <vpn@cableguard.org>
 Installed-Size: 24
-Depends: cgtools (= 00.90.51)
+Depends: cgtools (= 00.90.53)
 Section: debug
 Priority: optional
 Description: debug symbols for cgtools
