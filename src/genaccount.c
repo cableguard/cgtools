@@ -217,7 +217,7 @@ int genaccount_main(int argc, const char *argv[])
         perror("Error opening file");
         return 1;
     }
-    fprintf(file,"{\"account_id\":\"");
+    fprintf(file,"{\"implicit_account_id\":\"");
     for (int i = 0; i < WG_KEY_LEN; i++) {
         fprintf(file, "%02x", public_hexkey[i]);
         }
