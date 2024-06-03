@@ -44,7 +44,7 @@ int main(int argc, const char *argv[])
 	PROG_NAME = argv[0];
 
 	if (argc == 2 && (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version") || !strcmp(argv[1], "version"))) {
-		printf("wireguard-tools v %s - https://github.com/alanesmizi/cableguard-wgtools\n", WIREGUARD_TOOLS_VERSION);
+		printf("wireguard-tools v %s - https://github.com/cableguard/cableguard-wgtools\n", WIREGUARD_TOOLS_VERSION);
 		return 0;
 	}
 	if (argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help") || !strcmp(argv[1], "help"))) {
