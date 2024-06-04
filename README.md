@@ -17,7 +17,7 @@ From the cgtools directory where the source code is downloaded
 With the command
 - wg --version
 you should get
-- wireguard-tools v cableguard 0.90.54:
+- wireguard-tools v cableguard 0.90.53:
 
 ## How to Use
 You need to set the blockchain network:
