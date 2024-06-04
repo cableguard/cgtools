@@ -1,4 +1,11 @@
+# Compiled output
+build/
+debian/
+
+# Cscope files
 cscope.out
+
+# Object files
 *.o
 *.d
 *.lib
@@ -6,20 +13,29 @@ cscope.out
 *.dsc
 *.gch
 *.dwo
+
+# Executable files
 src/wg
 src/wg.exe
+
+# Vim swap files
 *.swp
+
+# Ida Pro files
 *.id0
 *.id1
 *.id2
 *.nam
 *.til
+
+# Qt Creator files
 *.pro.user
+
+# Directories
 maint/
 .vscode/
+
+# Misc
 account
 dev-account
 *.tar.xz
-*.dsc
-debian/
-build/
