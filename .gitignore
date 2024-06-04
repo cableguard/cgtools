@@ -21,4 +21,4 @@ account
 dev-account
 *.tar.xz
 *.dsc
-*debian/
+debian/

@@ -10,4 +10,4 @@ Depends: cgtools (= 00.90.54)
 Section: debug
 Priority: optional
 Description: debug symbols for cgtools
-Build-Ids: 7147a5be6ce42c1144154b14bd7e717e1cae60fc
+Build-Ids: 592732a673e5faa05641f09d65328b0195762aca
