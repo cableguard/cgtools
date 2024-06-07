@@ -1,7 +1,7 @@
 ![cableguard logo banner](./banner.png)
 
 # Cableguard TOOL for configuring Cableguard TUN
-This supplies the main userspace tooling for using and configuring WireGuard tunnels, with one extra option 'genaccount' to generate NEAR protocol implicit account json files with the account ID and key pair  that are stored in the ~/.near-credentials/ directory
+This supplies the main userspace tooling for using and configuring WireGuard tunnels, with two extra options 'genaccount' to generate NEAR protocol implicit account json files with the account ID and key pair that are stored in the ~/.near-credentials/$BLOCKCHAIN_ENV directory
 
 ## License
 This project is released under the [GPLv2](COPYING).
@@ -19,23 +19,16 @@ With the command
 you should get
 - wireguard-tools v cableguard 0.90.53:
 
+##How to install form Deb package
+wget https://cableguard.fra1.digitaloceanspaces.com/cgtools_00.90.53_amd64.deb
+sudo apt install ./cgtools_00.90.53_amd64.deb
+
 ## How to Use
 You need to set the blockchain network:
 export BLOCKCHAIN_ENV=testnet (for testnet, mainnet for mainnet)
 You may want to add this line to your .bashrc file
 
-It is used by the rodtwallet.sh script, with the following options overall after NEAR CLI is installed:
-
-Usage: ./walletsh/rodtwallet.sh [account_id] [Options]
-
-Options:
--  ./walletsh/rodtwallet.sh                   : List of available accounts
--  ./walletsh/rodtwallet.sh *accountID*       : Lists the RODT Ids in the account and its balance
--  ./walletsh/rodtwallet.sh *accountID* keys  : Displays the accountID and the Private Key of the account
--  ./walletsh/rodtwallet.sh *accountID* rodtId: Displays the indicated RODT
--  ./walletsh/rodtwallet.sh *fundingaccountId* *unitializedaccountId* init   : Initializes account with 0.01 NEAR from funding acount
--  ./walletsh/rodtwallet.sh *originaccountId*  *destinationaccountId* rodtId : Sends ROTD from origin account to destination account
--  ./walletsh/rodtwallet.sh genaccount        : Creates a new uninitialized accountID
+run wg help to display options. The options genaccount and subdomain-peer are not found in defaults wg from Wireguard
 
 # Cableguard Ecosystem
 - Cableguard RODIVPN: RODiT and VPN manager
