@@ -31,10 +31,11 @@ You may want to add this line to your .bashrc file
 run wg help to display options. The options genaccount and subdomain-peer are not found in defaults wg from Wireguard
 
 # Cableguard Ecosystem
-- Cableguard RODIVPN: RODiT and VPN manager
-- Cableguard TOOLS: local VPN tunnel configuration
-- Cableguard TUN: VPN tunnels
-- Cableguard FORGE: RODiT minter
+    Cableguard RODITVPN: RODiT and VPN manager
+    Cableguard TOOLS: local VPN tunnel configuration
+    Cableguard TUN: VPN tunnels
+    Cableguard FORGE: RODiT minter
+
 
 ---
 <sub><sub><sub><sub>WireGuard is a registered trademark of Jason A. Donenfeld. Cableguard is not sponsored or endorsed by Jason A. Donenfeld.</sub></sub></sub></sub>
